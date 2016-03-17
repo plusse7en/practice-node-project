@@ -26,6 +26,11 @@ $.init.load(path.resolve(__dirname,'init','mongodb.js'));
 //加载Models
 $.init.load(path.resolve(__dirname,'models'));
 
+//初始化Express
+$.init.load(path.resolve(__dirname,'init','express.js'));
+//加载路由
+$.init.load(path.resolve(__dirname,'routes'));
+
 //初始化
 $.init((err)=>{
   if (err){
@@ -35,6 +40,8 @@ $.init((err)=>{
     console.log('inited [env=%s]',$.env);
   }
 
+/*测试mongodb，数据是否写进数据库
+=========docker的mongodb，用robomongo或mongovue这种gui工具刷新不出添加的数据，但是$.model.User.find({}, console.log)能查到数据
   const item = new $.model.User({
     name: `user${$.utils.date('YmdHis')}`,
     password: '123456',
@@ -42,4 +49,6 @@ $.init((err)=>{
   });
   item.save(console.log);
 
+  $.model.User.find({}, console.log);
+*/
 });
