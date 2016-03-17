@@ -12,6 +12,10 @@ import bodyParser from 'body-parser';
 import multiParty from 'multiparty';
 
 module.exports = function(done) {
+
+  const debug = $.createDebug('init:express');
+  debug('initing express...');
+
   const app = express();
 
   app.use(bodyParser.json());
