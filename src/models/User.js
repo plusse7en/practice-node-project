@@ -1,9 +1,10 @@
 'use strict';
 
 /**
-* practice Node.js project by Dataguru
-* @author Plusseven Wang <jackwangjiaqi@qq.com>
-*/
+ * pratice Node.js project
+ *
+ * @author Zongmin Lei <leizongmin@gmail.com>
+ */
 
 import mongoose from 'mongoose';
 

@@ -1,13 +1,14 @@
 'use strict';
 
 /**
-* practice Node.js project by Dataguru
-* @author Plusseven Wang <jackwangjiaqi@qq.com>
-*/
+ * pratice Node.js project
+ *
+ * @author Zongmin Lei <leizongmin@gmail.com>
+ */
 
-module.exports = function(set,get,has) {
+module.exports = function (set, get, has) {
 
-  //服务器监听端口
+  // 服务器监听端口
   set('web.port', 3000);
 
   // session secret

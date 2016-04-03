@@ -1,10 +1,10 @@
 'use strict';
 
 /**
-* practice Node.js project by Dataguru
-* @author Plusseven Wang <jackwangjiaqi@qq.com>
-*/
-
+ * pratice Node.js project
+ *
+ * @author Zongmin Lei <leizongmin@gmail.com>
+ */
 /*
 $.method('user.add').call({
   name: 'hello2',
@@ -14,14 +14,14 @@ $.method('user.add').call({
   about: '好厉害啊',
 }, console.log);
 */
-
+/*
 $.method('user.get').call({
-  name: 'hello2',
+  name: 'hello',
 }, console.log);
-
+*/
 /*
 $.method('user.update').call({
-  name: 'hello2',
-  nickname: '我是7',
+  name: 'hello',
+  nickname: '我是老雷',
 }, console.log);
 */
