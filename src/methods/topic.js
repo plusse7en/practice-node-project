@@ -65,6 +65,7 @@ module.exports = function (done) {
       createdAt: 1,
       updatedAt: 1,
       lastCommentedAt: 1,
+      pageView: 1,
     }).populate({
       path: 'author',
       model: 'User',
@@ -120,6 +121,16 @@ module.exports = function (done) {
   });
 
 
+  $.method('topic.incrPageView').check({
+    _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
+  });
+  $.method('topic.incrPageView').register(async function (params) {
+
+    return $.model.Topic.update({_id: params._id}, {$inc: {pageView: 1}});
+
+  });
+
+
   $.method('topic.comment.add').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
     author: {required: true, validate: (v) => validator.isMongoId(String(v))},
@@ -132,6 +143,34 @@ module.exports = function (done) {
       content: params.content,
       createdAt: new Date(),
     };
+
+    const topic = await $.method('topic.get').call({_id: params._id});
+    if (!topic) throw new Error('topic does not exists');
+
+    await $.method('notification.add').call({
+      from: params.author,
+      to: topic.author._id,
+      type: 'topic_comment',
+      data: {
+        _id: params._id,
+        title: topic.title,
+      },
+    });
+
+    const fromUser = await $.method('user.get').call({_id: params.author});
+    const toUser = await $.method('user.get').call({_id: topic.author._id});
+    $.method('mail.sendTemplate').call({
+      to: toUser.email,
+      subject: `有人回复了你发表的主题《${topic.title}》`,
+      template: 'reply',
+      data: {
+        topic: topic,
+        content: params.content,
+        user: fromUser,
+      },
+    }, err => {
+      if (err) console.error(err);
+    });
 
     return $.model.Topic.update({_id: params._id}, {
       $push: {
